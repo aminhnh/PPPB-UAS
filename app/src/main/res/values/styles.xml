@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomTextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="boxBackgroundColor">#EDEDED</item>
+        <item name="android:textColorHint">#828282</item>
+        <item name="boxCornerRadiusTopStart">@dimen/input_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/input_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/input_corner_radius</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/input_corner_radius</item>
+        <item name="boxStrokeWidth">0dp</item>
+    </style>
+
+    <style name="CustomTextInputEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">32dp</item>
+    </style>
+
+    <style name="CustomMaterialButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cornerRadius">@dimen/input_corner_radius</item>
+        <item name="backgroundTint">@color/main_blue</item>
+        <item name="android:elevation">10dp</item>
+    </style>
+
+    <style name="CustomDatePicker">
+        <item name="android:textColorPrimary">#00796B</item>
+        <item name="android:colorControlNormal">#FBC02D</item>
+    </style>
+
+</resources>

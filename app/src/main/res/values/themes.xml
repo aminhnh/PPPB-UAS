@@ -1,9 +1,39 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.PPPBUAS" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorPrimary">@color/main_blue</item>
     </style>
 
     <style name="Theme.PPPBUAS" parent="Base.Theme.PPPBUAS" />
+
+    <style name="Base.Theme.PPPBTabLayoutViewPager.WithActionBar" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/main_blue</item>
+        <item name="actionBarStyle">@style/CustomActionBar</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+    <style name="Theme.PPPBTabLayoutViewPager.WithActionBar" parent="Base.Theme.PPPBTabLayoutViewPager.WithActionBar"/>
+
+    <style name="Theme.PPPBTabLayoutViewPager.WithActionBar.LightBackground" parent="Theme.PPPBTabLayoutViewPager.WithActionBar">
+        <item name="actionBarStyle">@style/CustomActionBar.Light</item>
+    </style>
+
+    <style name="CustomActionBar" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="background">@color/main_blue</item>
+        <item name="titleTextStyle">@style/CustomActionBar.Text</item>
+        <item name="drawableTint">@color/white</item>
+    </style>
+
+    <style name="CustomActionBar.Light" parent="CustomActionBar">
+        <item name="background">@color/white</item>
+    </style>
+
+    <style name="CustomActionBar.Text" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="Title">
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">28sp</item>
+    </style>
 </resources>

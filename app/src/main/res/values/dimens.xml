@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="input_corner_radius">10dp</dimen>
+    <dimen name="horizontal_padding">30dp</dimen>
+    <dimen name="editTextMargin">18dp</dimen>
+</resources>
