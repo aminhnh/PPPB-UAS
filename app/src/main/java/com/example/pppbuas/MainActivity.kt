@@ -1,5 +1,6 @@
 package com.example.pppbuas
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
@@ -33,6 +34,10 @@ class MainActivity : AppCompatActivity() {
             }.attach()
 
             tabLayout.isTabIndicatorFullWidth = true
+
+            val intentToMain = Intent(this@MainActivity, DashboardActivity::class.java)
+            startActivity(intentToMain)
+
         }
     }
 }
