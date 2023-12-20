@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LoginFragment"
+    tools:context=".auth.LoginFragment"
     android:paddingHorizontal="@dimen/horizontal_padding">
 
     <ScrollView
@@ -28,7 +28,7 @@
                 />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_text_username"
+                android:id="@+id/edit_text_email"
                 style="@style/CustomTextInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,10 +38,10 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_username"
+                    android:id="@+id/input_email"
                     style="@style/CustomTextInputEditText"
-                    android:hint="Username"
-                    android:inputType="text"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,7 +50,7 @@
                 style="@style/CustomTextInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_text_username"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_email"
                 android:layout_marginTop="@dimen/editTextMargin"
                 app:endIconMode="password_toggle"
                 >

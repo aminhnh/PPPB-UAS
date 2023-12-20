@@ -1,4 +1,4 @@
-package com.example.pppbuas
+package com.example.pppbuas.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

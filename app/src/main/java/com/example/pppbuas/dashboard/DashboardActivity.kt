@@ -1,12 +1,14 @@
-package com.example.pppbuas
+package com.example.pppbuas.dashboard
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.pppbuas.MainActivity
+import com.example.pppbuas.R
 import com.example.pppbuas.databinding.ActivityDashboardBinding
 
 class DashboardActivity : AppCompatActivity() {

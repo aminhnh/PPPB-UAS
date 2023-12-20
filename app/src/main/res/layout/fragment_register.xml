@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".RegisterFragment"
+    tools:context=".auth.RegisterFragment"
     android:paddingHorizontal="@dimen/horizontal_padding">
 
     <ScrollView
@@ -28,7 +28,7 @@
                 tools:layout_editor_absoluteX="30dp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_text_username"
+                android:id="@+id/edit_text_name"
                 style="@style/CustomTextInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,9 +38,9 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_username"
+                    android:id="@+id/input_name"
                     style="@style/CustomTextInputEditText"
-                    android:hint="Username"
+                    android:hint="Full Name"
                     android:inputType="text"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -50,7 +50,7 @@
                 style="@style/CustomTextInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_text_username"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_name"
                 android:layout_marginTop="@dimen/editTextMargin"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -63,11 +63,28 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_text_phone"
+                android:id="@+id/edit_text_nim"
                 style="@style/CustomTextInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_text_email"
+                android:layout_marginTop="@dimen/editTextMargin"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_nim"
+                    android:hint="NIM"
+                    style="@style/CustomTextInputEditText"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_text_phone"
+                style="@style/CustomTextInputLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_nim"
                 android:layout_marginTop="@dimen/editTextMargin"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -125,8 +142,8 @@
                 android:id="@+id/btn_register"
                 style="@style/CustomMaterialButton"
                 android:text="Register"
-                android:layout_marginTop="545dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="50dp"
+                app:layout_constraintTop_toBottomOf="@id/checkbox"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
