@@ -5,15 +5,15 @@
     </style>
 
     <style name="Theme.PPPBUAS" parent="Base.Theme.PPPBUAS" />
+    <style name="Theme.PPPBUAS.WithActionBar" parent="Base.Theme.PPPBUAS.WithActionBar"/>
 
-    <style name="Base.Theme.PPPBTabLayoutViewPager.WithActionBar" parent="Theme.Material3.DayNight">
+    <style name="Base.Theme.PPPBUAS.WithActionBar" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">@color/main_blue</item>
         <item name="actionBarStyle">@style/CustomActionBar</item>
         <item name="fontFamily">@font/poppins</item>
     </style>
-    <style name="Theme.PPPBTabLayoutViewPager.WithActionBar" parent="Base.Theme.PPPBTabLayoutViewPager.WithActionBar"/>
 
-    <style name="Theme.PPPBTabLayoutViewPager.WithActionBar.LightBackground" parent="Theme.PPPBTabLayoutViewPager.WithActionBar">
+    <style name="Theme.PPPBUAS.WithActionBar.LightBackground" parent="Theme.PPPBUAS.WithActionBar">
         <item name="actionBarStyle">@style/CustomActionBar.Light</item>
     </style>
 

@@ -34,4 +34,14 @@
         android:name="com.example.pppbuas.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/createOtherFragment"
+        android:name="com.example.pppbuas.admin.CreateOtherFragment"
+        android:label="fragment_create_other"
+        tools:layout="@layout/fragment_create_other" />
+    <fragment
+        android:id="@+id/createTravelFragment"
+        android:name="com.example.pppbuas.admin.CreateTravelFragment"
+        android:label="fragment_create_travel"
+        tools:layout="@layout/fragment_create_travel" />
 </navigation>

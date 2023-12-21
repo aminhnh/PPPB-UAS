@@ -5,45 +5,55 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pppbuas.R
+import com.example.pppbuas.databinding.FragmentHomeBinding
+import com.example.pppbuas.model.City
+import com.example.pppbuas.adapter.RecommendedDestinationAdapter
 
 /**
  * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
+ * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding : FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    private val TAG = "HomeFragment"
+    var adapterDestination : RecommendedDestinationAdapter = RecommendedDestinationAdapter(emptyList()) {}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    companion object {
-        const val ARG_PARAM1 = "param1"
-        const val ARG_PARAM2 = "param2"
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        val destinations = getRecommendedDestinations()
+
+        adapterDestination = RecommendedDestinationAdapter(destinations) {
+            data ->
+
+        }
+
+        with(binding){
+            rvDestination.apply {
+                adapter = adapterDestination
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
+        }
+
+    }
+    private fun getRecommendedDestinations(): List<City>{
+        return listOf(
+            City("Tokyo", R.drawable.img_city_tokyo.toString()),
+            City("Kyoto", R.drawable.img_city_kyoto.toString()),
+            City("Hiroshima", R.drawable.img_city_hiroshima.toString()),
+            City("Osaka", R.drawable.img_city_osaka.toString()),
+            City("Sapporo", R.drawable.img_city_sapporo.toString())
+        )
     }
 }

@@ -4,9 +4,10 @@
 
     <item
         android:title=""
-        android:id="@+id/action_logout"
-        android:icon="@drawable/baseline_logout_24"
+        android:id="@+id/action_notification"
+        android:icon="@drawable/icon_nav_notification"
         app:showAsAction="always"
+        android:iconTint="@color/white"
         />
 
 </menu>

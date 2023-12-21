@@ -5,7 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class City(
-    val name: String?
+    val name: String?,
+    val image: String?
 ) : Parcelable {
-    constructor() : this(null)
+    constructor() : this(null, null)
 }

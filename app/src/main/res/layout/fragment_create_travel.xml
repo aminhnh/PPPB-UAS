@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.CreateTravelFragment"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/horizontal_padding"
+            >
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Train Schedules"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_name"
+        style="@style/CustomTextInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_title"
+        android:layout_marginVertical="10dp"
+        android:layout_marginBottom="@dimen/editTextMargin"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_name"
+            style="@style/CustomTextInputEditText"
+            android:hint="Train Name"
+            android:inputType="text"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_from"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_name"
+        android:layout_marginVertical="10dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:hint="From"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/auto_tv_from"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_from"
+        android:layout_marginVertical="10dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:hint="To"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/auto_tv_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Departure Time -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_departure_time"
+        style="@style/CustomTextInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_to"
+        android:layout_marginVertical="10dp"
+        android:hint="Departure Time"
+        >
+        <EditText
+            android:id="@+id/edit_text_departure_time_input"
+            style="@style/CustomTextInputEditText"
+            android:inputType="none"
+            android:drawableEnd="@drawable/baseline_access_time_24"
+            android:drawablePadding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:clickable="true"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Arrival Time -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_arrival_time"
+        style="@style/CustomTextInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_departure_time"
+        android:layout_marginVertical="10dp"
+        android:hint="Arrival Time"
+        >
+        <EditText
+            android:id="@+id/edit_text_arrival_time_input"
+            style="@style/CustomTextInputEditText"
+            android:inputType="none"
+            android:drawableEnd="@drawable/baseline_access_time_24"
+            android:drawablePadding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:clickable="true"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <!-- Price -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_price"
+        style="@style/CustomTextInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_arrival_time"
+        android:layout_marginVertical="10dp"
+        android:hint="Price"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_price_input"
+            style="@style/CustomTextInputEditText"
+            android:inputType="numberDecimal"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Total Seats -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_total_seats"
+        style="@style/CustomTextInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_price"
+        android:layout_marginVertical="10dp"
+        android:hint="Total Seats"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_total_seats_input"
+            style="@style/CustomTextInputEditText"
+            android:inputType="number"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_date"
+        style="@style/CustomTextInputLayout"
+        android:layout_marginVertical="10dp"
+        android:layout_marginBottom="@dimen/editTextMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_total_seats">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_date"
+            style="@style/CustomTextInputEditText"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:hint="Date"
+            android:inputType="none"
+            android:maxLines="1"
+            android:text="" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_crete"
+        style="@style/CustomMaterialButton"
+        android:text="CREATE"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

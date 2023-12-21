@@ -1,10 +1,13 @@
 package com.example.pppbuas.user
 
 import android.util.Log
+import com.example.pppbuas.auth.AuthenticationManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
 
-class UserManager {
+object UserManager {
     interface UserDataCallback {
         fun onSuccess(userData: AppUser?)
         fun onFailure(error: String?)
@@ -22,18 +25,12 @@ class UserManager {
             }
         }
     }
-    fun getUserData(userId: String, callback: UserDataCallback) {
-        try {
-            usersCollection.document(userId).get()
-                .addOnSuccessListener { document ->
-                    val userData = document.toObject(AppUser::class.java)
-                    callback.onSuccess(userData)
-                }
-                .addOnFailureListener { exception ->
-                    callback.onFailure(exception.message)
-                }
+    suspend fun getUserData(userId: String): AppUser? {
+        return try {
+            val documentSnapshot = usersCollection.document(userId).get().await()
+            documentSnapshot.toObject(AppUser::class.java)
         } catch (e: Exception) {
-            callback.onFailure("Error getting user data")
+            null
         }
     }
     suspend fun updateUserData(user: AppUser) {
@@ -56,7 +53,25 @@ class UserManager {
     }
     private fun handleFirestoreException(message: String, exception: Exception) {
         Log.w(TAG, message, exception)
-        // You can add additional error handling logic here if needed
     }
+    fun getUserRole(callback: (String?) -> Unit) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
 
+        if (currentUser != null) {
+            val userId = currentUser.uid
+
+            usersCollection.document(userId).get()
+                .addOnSuccessListener { documentSnapshot ->
+                    val user = documentSnapshot.toObject<AppUser>()
+                    val userRole = user?.role
+                    callback.invoke(userRole)
+                }
+                .addOnFailureListener {
+                    callback.invoke(null)
+                }
+        } else {
+            // User is not authenticated
+            callback.invoke(null)
+        }
+    }
 }

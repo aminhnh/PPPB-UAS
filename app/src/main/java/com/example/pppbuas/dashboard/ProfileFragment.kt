@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.pppbuas.R
 import com.example.pppbuas.auth.AuthenticationManager
@@ -25,7 +26,7 @@ class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val TAG = "ProfileFragment"
-    private val userManager = UserManager()
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,23 +45,25 @@ class ProfileFragment : Fragment() {
                     // User is signed in
                     val userId = currentUser.uid
 
-                    userManager.getUserData(userId, object : UserManager.UserDataCallback {
-                        override fun onSuccess(userData: AppUser?) {
-                            if (userData != null) {
-                                accEmail.text = userData.email
-                                accName.text = userData.fullName
-                                accNim.text = userData.nim
-                                accPhone.text = userData.phoneNumber
-                            }
+                    // Observe changes in userData and update UI accordingly
+                    viewModel.userData.observe(viewLifecycleOwner) { userData ->
+                        if (userData != null) {
+                            accEmail.text = userData.email
+                            accName.text = userData.fullName
+                            accNim.text = userData.nim
+                            accPhone.text = userData.phoneNumber
                         }
-                        override fun onFailure(error: String?) {
-                            Log.e(TAG, "Error fetching user data: $error")
-                        }
-                    })
+                    }
+
+                    // Fetch user data only if it hasn't been fetched yet
+                    if (viewModel.userData.value == null) {
+                        viewModel.fetchUserData(userId)
+                    }
                 } else {
                     // User is not signed in
                     handleLogout()
                 }
+
                 btnLogout.setOnClickListener {
                     handleLogout()
                 }

@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.pppbuas.MainActivity
 import com.example.pppbuas.R
 import com.example.pppbuas.databinding.ActivityDashboardBinding
+import com.example.pppbuas.user.UserManager
 
 class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,10 +19,30 @@ class DashboardActivity : AppCompatActivity() {
         val binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        title = "KotlinRails"
-        supportActionBar?.show()
 
         with(binding){
+            val userRole = UserManager.getUserRole {
+                userRole ->
+                if (userRole != null) {
+                    when (userRole) {
+                        "user" -> {
+                            title = "KotlinRails"
+                            bottomNavView.menu.clear()
+                            bottomNavView.inflateMenu(R.menu.bottom_navigation_user)
+                        }
+                        "admin" -> {
+                            title = "Admin Panel"
+                            bottomNavView.menu.clear()
+                            bottomNavView.inflateMenu(R.menu.bottom_navigation_admin)
+                        }
+                    }
+                } else {
+                    // Failed to retrieve user role
+                }
+            }
+
+            supportActionBar?.show()
+
             val navController = findNavController(R.id.nav_host_fragment)
             bottomNavView.setupWithNavController(navController)
         }
@@ -34,9 +55,10 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
-            R.id.action_logout -> {
-                val intentToMain = Intent(this@DashboardActivity, MainActivity::class.java)
-                startActivity(intentToMain)
+            R.id.action_notification -> {
+                //TODO: intent to notification
+//                val intentToMain = Intent(this@DashboardActivity, MainActivity::class.java)
+//                startActivity(intentToMain)
                 true
             }
             else -> super.onOptionsItemSelected(item)
