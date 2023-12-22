@@ -1,7 +1,6 @@
 package com.example.pppbuas.dashboard
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import com.example.pppbuas.R
-import com.example.pppbuas.ticket.SearchActivity
-import com.example.pppbuas.model.City
-import com.example.pppbuas.adapter.RecommendedDestinationAdapter
-import com.example.pppbuas.databinding.FragmentHomeBinding
+import com.example.pppbuas.databinding.FragmentSearchBinding
 import com.example.pppbuas.model.Station
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -24,14 +20,13 @@ import java.util.Locale
 
 /**
  * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
+ * Use the [SearchFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
-    private var _binding : FragmentHomeBinding? = null
+class SearchFragment : Fragment() {
+    private var _binding : FragmentSearchBinding? = null
     private val binding get() = _binding!!
-    private val TAG = "HomeFragment"
-    var adapterDestination : RecommendedDestinationAdapter = RecommendedDestinationAdapter(emptyList()) {}
+    private val TAG = "SearchFragment"
 
     private val calendar = Calendar.getInstance()
     private var formattedDate : String = ""
@@ -42,67 +37,36 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val destinations = getRecommendedDestinations()
-
-        adapterDestination = RecommendedDestinationAdapter(destinations) {
-            data ->
-
-        }
-
         with(binding){
-            setupAutoCompleteTextView()
-            rvDestination.apply {
-                adapter = adapterDestination
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            }
             inputDate.setOnClickListener {
                 showDatePicker()
             }
-            btnSearch.setOnClickListener {
-                val date: String = inputDate.text.toString().trim()
-                val to: String = autoTvTo.text.toString().trim()
-                val from: String = autoTvFrom.text.toString().trim()
+            var selectedTo:String? = null
+            var selectedFrom:String? = null
+            var selectedDate:String? = null
 
-                val intentToSearch = Intent(requireContext(), SearchActivity::class.java)
-                intentToSearch.putExtra("date", date)
-                intentToSearch.putExtra("to", to)
-                intentToSearch.putExtra("from", from)
-                startActivity(intentToSearch)
-
-//                if (date.isNullOrEmpty()) {
-//                    date = null
-//                }
-//                if (to.isNullOrEmpty()) {
-//                    from = null
-//                }
-//                if (from.isNullOrEmpty()) {
-//                    from = null
-//                }
-//                val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
-//                findNavController().previousBackStackEntry?.savedStateHandle?.set("to", to)
-//                findNavController().previousBackStackEntry?.savedStateHandle?.set("from", from)
-//                findNavController().previousBackStackEntry?.savedStateHandle?.set("date", date)
-//                findNavController().navigate(action)
+            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String?>("to")?.observe(viewLifecycleOwner) {
+                result ->
+                selectedTo = result
             }
+            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String?>("from")?.observe(viewLifecycleOwner) {
+                result ->
+                selectedFrom = result
+            }
+            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String?>("date")?.observe(viewLifecycleOwner) {
+                result ->
+                selectedDate = result
+            }
+            setupAutoCompleteTextViewAndDate(selectedTo, selectedFrom, selectedDate)
         }
-
     }
-    private fun getRecommendedDestinations(): List<City>{
-        return listOf(
-            City("Tokyo", R.drawable.img_city_tokyo.toString()),
-            City("Kyoto", R.drawable.img_city_kyoto.toString()),
-            City("Hiroshima", R.drawable.img_city_hiroshima.toString()),
-            City("Osaka", R.drawable.img_city_osaka.toString()),
-            City("Sapporo", R.drawable.img_city_sapporo.toString())
-        )
-    }
-    private fun setupAutoCompleteTextView() {
+    private fun setupAutoCompleteTextViewAndDate(selectedTo: String?, selectedFrom: String?, selectedDate: String?) {
         val autoCompleteTextViewFrom = binding.editTextFrom.editText as? AutoCompleteTextView
         val autoCompleteTextViewTo = binding.editTextTo.editText as? AutoCompleteTextView
 
@@ -116,10 +80,28 @@ class HomeFragment : Fragment() {
                 val adapter = ArrayAdapter(requireContext(), R.layout.list_item, stationNames)
                 autoCompleteTextViewFrom?.setAdapter(adapter)
                 autoCompleteTextViewTo?.setAdapter(adapter)
+
+                val positionTo = stationNames.indexOf(selectedTo)
+                val positionFrom = stationNames.indexOf(selectedFrom)
+
+                if (positionFrom != -1) {
+                    autoCompleteTextViewFrom?.setText(stationNames[positionFrom], false)
+                    // If you want to trigger the selection listener, uncomment the line below
+//                     autoCompleteTextViewFrom?.listSelection = position
+                }
+                if (positionTo != -1) {
+                    autoCompleteTextViewTo?.setText(stationNames[positionTo], false)
+                    // If you want to trigger the selection listener, uncomment the line below
+//                     autoCompleteTextViewFrom?.listSelection = position
+                }
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(requireContext(), "Error getting stations: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
+
+        if (selectedDate != null) {
+            binding.inputDate.setText(selectedDate)
+        }
     }
     private fun showDatePicker(){
         with(binding){

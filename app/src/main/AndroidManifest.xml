@@ -15,6 +15,9 @@
         android:theme="@style/Theme.PPPBUAS.WithActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".ticket.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".dashboard.DashboardActivity"
             android:exported="false" />
         <activity

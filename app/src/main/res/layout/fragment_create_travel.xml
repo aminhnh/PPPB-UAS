@@ -56,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
+            android:backgroundTint="@color/text_bg_gray"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
+            android:backgroundTint="@color/text_bg_gray"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,6 +189,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

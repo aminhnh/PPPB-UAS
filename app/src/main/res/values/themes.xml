@@ -1,11 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.PPPBUAS" parent="Theme.Material3.DayNight.NoActionBar">
-         <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorPrimary">@color/main_blue</item>
     </style>
 
     <style name="Theme.PPPBUAS" parent="Base.Theme.PPPBUAS" />
-    <style name="Theme.PPPBUAS.WithActionBar" parent="Base.Theme.PPPBUAS.WithActionBar"/>
+
+    <style name="Theme.PPPBUAS.WithActionBar" parent="Base.Theme.PPPBUAS.WithActionBar" />
 
     <style name="Base.Theme.PPPBUAS.WithActionBar" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">@color/main_blue</item>

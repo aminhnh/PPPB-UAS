@@ -54,10 +54,6 @@ class CreateTravelFragment : Fragment() {
 //            val items = listOf("Material", "Design", "Components", "Android")
 //            val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
 //            (editTextFrom.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-//
-//            val itemsTo = listOf("Material", "Design", "Components", "Android")
-//            val adapterTo = ArrayAdapter(requireContext(), R.layout.list_item, itemsTo)
-//            (editTextTo.editText as? AutoCompleteTextView)?.setAdapter(adapterTo)
 
             editTextDepartureTimeInput.setOnClickListener {
                 showTimePickerDialog(editTextDepartureTimeInput)
@@ -161,7 +157,7 @@ class CreateTravelFragment : Fragment() {
             .get()
             .addOnSuccessListener { result ->
                 val stationList = result.toObjects(Station::class.java)
-                val stationNames = stationList.mapNotNull { it.name }
+                val stationNames = stationList.mapNotNull { it.name + ", " + it.city }
 
                 // Create and set ArrayAdapter
                 val adapter = ArrayAdapter(requireContext(), R.layout.list_item, stationNames)

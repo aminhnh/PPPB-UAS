@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 class CreateOtherFragment : Fragment() {
     private var _binding : FragmentCreateOtherBinding? = null
     private val binding get() = _binding!!
-    private val TAG = "ProfileFragment"
+    private val TAG = "CreateOtherFragment"
     private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(

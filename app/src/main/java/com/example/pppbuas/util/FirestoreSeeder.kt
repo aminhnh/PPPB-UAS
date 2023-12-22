@@ -1,6 +1,7 @@
 package com.example.pppbuas.util
 
 import com.example.pppbuas.model.Amenity
+import com.example.pppbuas.model.Station
 import com.example.pppbuas.model.TravelClass
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.GlobalScope
@@ -79,17 +80,17 @@ object FirestoreSeeder {
 
     private fun seedStations() {
         val stations = listOf(
-            Pair("StationA", "Lh6Eg3WCYDLO7ZT2ocLe"),
-            Pair("StationB", "PY5UvHXHX41SFeOn3Cgz"),
-            Pair("StationC", "PY5UvHXHX41SFeOn3Cgz"),
-            Pair("StationD", "nmai3qD8kgq1kCrTBil1")
+            Station("StationA", "Chiba"),
+            Station("StationB", "Tokyo"),
+            Station("StationC", "Miyagi"),
+            Station("StationD", "Osaka")
         )
 
         GlobalScope.launch {
-            for ((stationName, cityId) in stations) {
+            for ((stationName, city) in stations) {
                 val stationData = hashMapOf(
                     "name" to stationName,
-                    "cityId" to cityId
+                    "city" to city
                 )
                 firestore.collection("stations").add(stationData)
                     .addOnSuccessListener { documentReference ->

@@ -3,4 +3,5 @@
     <dimen name="input_corner_radius">10dp</dimen>
     <dimen name="horizontal_padding">30dp</dimen>
     <dimen name="editTextMargin">18dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
