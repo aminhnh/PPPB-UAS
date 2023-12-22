@@ -5,4 +5,5 @@
     <color name="text_bg_gray">#EDEDED</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_blue">#525BFF</color>
+    <color name="green_ok">#81CF27</color>
 </resources>

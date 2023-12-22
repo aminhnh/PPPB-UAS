@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.pppbuas.R
 import com.example.pppbuas.dashboard.ProfileViewModel
-import com.example.pppbuas.databinding.FragmentCreateOtherBinding
 import com.example.pppbuas.databinding.FragmentCreateTravelBinding
 import com.example.pppbuas.model.Station
 import com.example.pppbuas.model.Travel
@@ -110,23 +109,40 @@ class CreateTravelFragment : Fragment() {
     }
 
     private fun saveTravelData() {
+
+        val destinationStationRaw = binding.autoTvTo.text.toString().trim()
+        val departureStationRaw = binding.autoTvFrom.text.toString().trim()
+
+        val commaIndexDest = destinationStationRaw.indexOf(',')
+        val commaIndexDep = departureStationRaw.indexOf(',')
+
+        val destinationStation = if (commaIndexDest != -1) {
+            destinationStationRaw.substring(0, commaIndexDest)
+        } else {
+            destinationStationRaw
+        }
+
+        val departureStation = if (commaIndexDep != -1) {
+            departureStationRaw.substring(0, commaIndexDep)
+        } else {
+            departureStationRaw
+        }
+
         val name = binding.inputName.text.toString().trim()
-        val destinationStationId = binding.autoTvTo.text.toString().trim()
-        val departureStationId = binding.autoTvFrom.text.toString().trim()
         val price = binding.editTextPriceInput.text.toString().toDoubleOrNull()
         val departureTime = binding.editTextDepartureTimeInput.text.toString().trim()
         val arrivalTime = binding.editTextArrivalTimeInput.text.toString().trim()
         val date = binding.inputDate.text.toString().trim()
         val totalSeats = binding.editTextTotalSeatsInput.text.toString().toIntOrNull()
 
-        if (name.isNotBlank() && destinationStationId.isNotBlank() && departureStationId.isNotBlank() &&
+        if (name.isNotBlank() && destinationStation.isNotBlank() && departureStation.isNotBlank() &&
             price != null && departureTime.isNotBlank() && arrivalTime.isNotBlank() &&
             date.isNotBlank() && totalSeats != null
         ) {
             val travel = Travel(
                 name,
-                destinationStationId,
-                departureStationId,
+                destinationStation,
+                departureStation,
                 price,
                 departureTime,
                 arrivalTime,
@@ -134,7 +150,6 @@ class CreateTravelFragment : Fragment() {
                 totalSeats,
                 0 // Initialize bookedSeats to 0
             )
-
             firestore.collection("travels")
                 .add(travel)
                 .addOnSuccessListener {

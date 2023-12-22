@@ -39,7 +39,7 @@
                 android:tint="#80000000"
                 tools:ignore="UseAppTint" />
             <TextView
-                android:id="@+id/txtCityName"
+                android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

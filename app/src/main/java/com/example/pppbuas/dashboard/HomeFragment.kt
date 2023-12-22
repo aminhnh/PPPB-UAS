@@ -21,7 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
 /**
  * A simple [Fragment] subclass.
  * Use the [HomeFragment.newInstance] factory method to
@@ -74,21 +73,6 @@ class HomeFragment : Fragment() {
                 intentToSearch.putExtra("to", to)
                 intentToSearch.putExtra("from", from)
                 startActivity(intentToSearch)
-
-//                if (date.isNullOrEmpty()) {
-//                    date = null
-//                }
-//                if (to.isNullOrEmpty()) {
-//                    from = null
-//                }
-//                if (from.isNullOrEmpty()) {
-//                    from = null
-//                }
-//                val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
-//                findNavController().previousBackStackEntry?.savedStateHandle?.set("to", to)
-//                findNavController().previousBackStackEntry?.savedStateHandle?.set("from", from)
-//                findNavController().previousBackStackEntry?.savedStateHandle?.set("date", date)
-//                findNavController().navigate(action)
             }
         }
 

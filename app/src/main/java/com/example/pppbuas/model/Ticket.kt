@@ -7,10 +7,10 @@ import kotlinx.android.parcel.Parcelize
 data class Ticket(
     val travelId: String?,
     val userId: String?,
-    val classId: String?,
-    val seatCount: String?,
+    val travelClass: String?,
+    val seatCount: Int?,
     val bookTimestamp: Long?,
-    val totalPrice: Double?
+    val totalPrice: String?
 ) : Parcelable {
     constructor() : this(null, null, null, null, null, null)
 }

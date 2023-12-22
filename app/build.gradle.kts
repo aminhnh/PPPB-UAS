@@ -5,6 +5,8 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
     id ("kotlin-parcelize")
+
+    id("kotlin-kapt")
 }
 
 android {
@@ -43,6 +45,10 @@ android {
 }
 
 dependencies {
+    // Room:
+    implementation("androidx.room:room-runtime:2.6.0")
+    kapt("androidx.room:room-compiler:2.6.0")
+
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")

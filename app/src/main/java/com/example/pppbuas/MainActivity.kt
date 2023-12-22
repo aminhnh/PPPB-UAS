@@ -1,6 +1,8 @@
 package com.example.pppbuas
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
     private var authStateListener: FirebaseAuth.AuthStateListener? = null
     private lateinit var signInResultCallback: SignInResultCallback
     private lateinit var signUpResultCallback: SignUpResultCallback
+    private lateinit var sharedPreferences: SharedPreferences
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -40,10 +43,15 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
             signInResultCallback
         )
 
+        sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+
         authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val currentUser = firebaseAuth.currentUser
             if (currentUser != null) {
                 signInResultCallback.onSignInSuccess()
+                saveLoginStatus(true)
+            } else {
+                saveLoginStatus(false)
             }
         }
         FirebaseAuth.getInstance().addAuthStateListener(authStateListener!!)
@@ -65,6 +73,11 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
 
             tabLayout.isTabIndicatorFullWidth = true
         }
+    }
+    private fun saveLoginStatus(isLoggedIn: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", isLoggedIn)
+        editor.apply()
     }
     override fun onDestroy() {
         super.onDestroy()

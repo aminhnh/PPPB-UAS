@@ -1,11 +1,23 @@
 package com.example.pppbuas.dashboard
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pppbuas.R
+import com.example.pppbuas.adapter.RecommendedDestinationAdapter
+import com.example.pppbuas.adapter.TicketAdapter
+import com.example.pppbuas.adapter.TravelAdapter
+import com.example.pppbuas.databinding.FragmentHistoryBinding
+import com.example.pppbuas.databinding.FragmentHomeBinding
+import com.example.pppbuas.model.Ticket
+import com.example.pppbuas.ticket.SearchActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 /**
  * A simple [Fragment] subclass.
@@ -13,38 +25,51 @@ import com.example.pppbuas.R
  * create an instance of this fragment.
  */
 class HistoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding : FragmentHistoryBinding? = null
+    private val binding get() = _binding!!
+    private val TAG = "HistoryFragment"
+    var adapterTicket : TicketAdapter = TicketAdapter(emptyList()) {}
+    val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    companion object {
-        const val ARG_PARAM1 = "param1"
-        const val ARG_PARAM2 = "param2"
+        updateHistory()
+        with(binding) {
 
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HistoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        }
+
+    }
+    private fun updateHistory() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val ticketsCollection = firestore.collection("tickets")
+
+        ticketsCollection
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { documents ->
+                val tickets = documents.mapNotNull { it.toObject(Ticket::class.java) }
+
+                adapterTicket = TicketAdapter(tickets) {
+                    data ->
+                    // ON CLICK
                 }
+                with(binding) {
+                    rvTickets.apply {
+                        adapter = adapterTicket
+                        layoutManager = LinearLayoutManager(context)
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, exception.toString())
             }
     }
 }

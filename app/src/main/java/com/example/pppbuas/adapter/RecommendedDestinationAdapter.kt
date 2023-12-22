@@ -12,8 +12,6 @@ class RecommendedDestinationAdapter(private val listDestination : List<City>, pr
     : RecyclerView.Adapter<RecommendedDestinationAdapter.ItemRecommendedDestinationViewHolder>()  {
     inner class ItemRecommendedDestinationViewHolder(private val binding : ItemRecommendedDestinationBinding)
         : RecyclerView.ViewHolder(binding.root) {
-
-//        private val itemBinding: ItemRecommendedDestinationBinding = binding
         fun bind(city : City) {
             with(binding) {
                 Log.d("yes", "masuk binding");
