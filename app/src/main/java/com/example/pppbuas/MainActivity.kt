@@ -14,6 +14,7 @@ import com.example.pppbuas.auth.TabAdapter
 import com.example.pppbuas.dashboard.DashboardActivity
 import com.example.pppbuas.databinding.ActivityMainBinding
 import com.example.pppbuas.util.FirestoreSeeder
+import com.example.pppbuas.util.PrefManager
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 
@@ -21,7 +22,8 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
     private var authStateListener: FirebaseAuth.AuthStateListener? = null
     private lateinit var signInResultCallback: SignInResultCallback
     private lateinit var signUpResultCallback: SignUpResultCallback
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var prefManager: PrefManager
+
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        prefManager = PrefManager.getInstance(this)
+
         FirestoreSeeder.seed()
 
         signInResultCallback = this
@@ -43,15 +47,11 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
             signInResultCallback
         )
 
-        sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
 
         authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val currentUser = firebaseAuth.currentUser
             if (currentUser != null) {
                 signInResultCallback.onSignInSuccess()
-                saveLoginStatus(true)
-            } else {
-                saveLoginStatus(false)
             }
         }
         FirebaseAuth.getInstance().addAuthStateListener(authStateListener!!)
@@ -74,11 +74,6 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
             tabLayout.isTabIndicatorFullWidth = true
         }
     }
-    private fun saveLoginStatus(isLoggedIn: Boolean) {
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", isLoggedIn)
-        editor.apply()
-    }
     override fun onDestroy() {
         super.onDestroy()
         FirebaseAuth.getInstance().removeAuthStateListener(authStateListener!!)
@@ -89,6 +84,7 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
         finish()
     }
     override fun onSignUpSuccess() {
+        prefManager.setLoggedIn(true)
         Toast.makeText(
             this@MainActivity,
             "Registered successfully",
@@ -97,9 +93,11 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
         navigateToDashboard()
     }
     override fun onSignUpFailure(errorMessage: String?) {
+        prefManager.setLoggedIn(false)
         Toast.makeText(this, "Register failed: $errorMessage", Toast.LENGTH_SHORT).show()
     }
     override fun onSignInSuccess() {
+        prefManager.setLoggedIn(true)
         Toast.makeText(
             this@MainActivity,
             "Loged in successfully",
@@ -108,6 +106,7 @@ class MainActivity : AppCompatActivity(), SignUpResultCallback, SignInResultCall
         navigateToDashboard()
     }
     override fun onSignInFailure(errorMessage: String?) {
+        prefManager.setLoggedIn(false)
         Toast.makeText(this, "Login failed: $errorMessage", Toast.LENGTH_SHORT).show()
     }
 }
